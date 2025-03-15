@@ -23,12 +23,32 @@ class LinkedList {
     }
     this.tail = newNode;
   }
+
+  prepend(value) {
+    let newNode = new Node(value);
+    /*
+    If there's already a head node, that will be the
+    nextNode of this new Node
+    Make sure to set the nextNode before changing the
+    head attribute of the current linkedList
+    */
+    if (this.head) {
+      newNode.nextNode = this.head;
+    } else {
+      this.tail = newNode;
+    }
+    this.head = newNode;
+  }
 }
 
 const mainList = new LinkedList();
 mainList.append("hi");
 mainList.append("hi2");
-console.log(mainList.tail.value);
+
+console.clear();
 console.log(mainList.head.value);
+console.log(mainList.head.nextNode);
+console.log(mainList.tail.value);
+console.log(mainList.tail.nextNode);
 
 // Each nextNode will be referential
