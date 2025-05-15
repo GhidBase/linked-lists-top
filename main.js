@@ -5,23 +5,23 @@ class Node {
 }
 
 class LinkedList {
-  constructor(head = null, tail = null) {
-    (this.head = head), (this.tail = tail);
+  constructor(headNode = null, tailNode = null) {
+    (this.headNode = headNode), (this.tailNode = tailNode);
   }
 
   append(value) {
     let newNode = new Node(value);
-    if (this.tail) {
-      this.tail.nextNode = newNode;
+    if (this.tailNode) {
+      this.tailNode.nextNode = newNode;
     } else {
       /*
       I assume that if there's no head there's also
       no tail. I'll need to set both values on the first
       append
       */
-      this.head = newNode;
+      this.headNode = newNode;
     }
-    this.tail = newNode;
+    this.tailNode = newNode;
   }
 
   prepend(value) {
@@ -32,12 +32,12 @@ class LinkedList {
     Make sure to set the nextNode before changing the
     head attribute of the current linkedList
     */
-    if (this.head) {
-      newNode.nextNode = this.head;
+    if (this.headNode) {
+      newNode.nextNode = this.headNode;
     } else {
-      this.tail = newNode;
+      this.tailNode = newNode;
     }
-    this.head = newNode;
+    this.headNode = newNode;
   }
 }
 
@@ -46,9 +46,9 @@ mainList.append("hi");
 mainList.append("hi2");
 
 console.clear();
-console.log(mainList.head.value);
-console.log(mainList.head.nextNode);
-console.log(mainList.tail.value);
-console.log(mainList.tail.nextNode);
+console.log(mainList.headNode.value);
+console.log(mainList.headNode.nextNode);
+console.log(mainList.tailNode.value);
+console.log(mainList.tailNode.nextNode);
 
 // Each nextNode will be referential
