@@ -63,13 +63,14 @@ class LinkedList {
     at(index) {
         if (index > this.listSize) {
             console.error(
-                `Requested index (${index}) is bigger than the Linked List (size:${this.listSize})`
+                `at(): Requested index (${index}) is bigger than the Linked List (size:${this.listSize})`
             );
             return null;
         }
         if (index < 0) {
-            console.error(`Requested index (${index}) is smaller than 0`);
+            console.error(`at(): Requested index (${index}) is smaller than 0`);
         }
+
         let currentNode = this.head();
         for (let i = 0; i < index; i++) {
             currentNode = currentNode.nextNode;
@@ -147,10 +148,27 @@ class LinkedList {
     }
 
     insertAt(index, value) {
+        if (index > this.listSize) {
+            console.error(
+                `insertAt(): Requested index (${index}) is bigger than the Linked List (size:${this.listSize})`
+            );
+            return null;
+        }
+        if (index < 0) {
+            console.error(
+                `insertAt(): Requested index (${index}) is smaller than 0`
+            );
+        }
+
         let newNode = new Node(value);
         let originalNode = this.at(index);
-        let originalPreviousNode = originalNode.previousNode;
-        originalNode.previousNode = newNode;
+        // In the case of insertAt(listSize):
+        // Since originalNode.previousNode is null, we get it from at (index - 1)
+        // Instead of originalNode.previousNode directly
+        let originalPreviousNode = this.at(index - 1);
+        if (originalNode) {
+            originalNode.previousNode = newNode;
+        }
         if (originalPreviousNode) {
             originalPreviousNode.nextNode = newNode;
         }
@@ -178,9 +196,11 @@ mainList.append("hi1");
 mainList.append("hi2");
 mainList.prepend("hi0");
 console.log(mainList.toString());
+console.log(`List length ${mainList.listSize}`);
 
-mainList.insertAt(0, "hola");
-mainList.insertAt(2, "hola2");
+mainList.insertAt(1, "insert at 1");
 console.log(mainList.toString());
-console.log(mainList.at(mainList.listSize + 1));
-mainList.at(-1)
+console.log(`List length ${mainList.listSize}`);
+mainList.insertAt(mainList.listSize, "insert at end");
+console.log(mainList.toString())
+// console.log(mainList.toString())
