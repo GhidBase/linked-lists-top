@@ -98,27 +98,32 @@ class LinkedList {
         this.tailNode.nextNode = null;
         this.listSize--;
     }
+
+    contains(value) {
+        if (!this.listSize) {
+            console.error(
+                `contains(): LinkedList is empty, cannot search for ${value}`
+            );
+        }
+
+        let size = this.size();
+        let currentNode = this.head();
+        for (let i = 0; i < size; i++) {
+            if (currentNode.value != null && currentNode.value == value) {
+                return true;
+            }
+
+            currentNode = currentNode.nextNode;
+        }
+        return false;
+    }
 }
 
 const mainList = new LinkedList();
 
-// console.clear();
-
 mainList.append("hi1");
 mainList.append("hi2");
 mainList.prepend("hi0");
-
 console.log(mainList.toString());
-mainList.pop();
-console.log(mainList.toString());
-mainList.pop();
-console.log(mainList.toString());
-mainList.pop();
-console.log(mainList.toString());
-mainList.pop();
-mainList.pop();
-mainList.pop();
-mainList.prepend("new list");
-console.log(mainList.toString());
-
-// Each nextNode will be referential
+console.log(mainList.contains("hi"));
+console.log(mainList.contains("hi0"));
