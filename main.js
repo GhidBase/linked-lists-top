@@ -117,6 +117,25 @@ class LinkedList {
         }
         return false;
     }
+
+    find(value) {
+        if (!this.listSize) {
+            console.error(
+                `contains(): LinkedList is empty, cannot search for ${value}`
+            );
+        }
+
+        let size = this.size();
+        let currentNode = this.head();
+        for (let i = 0; i < size; i++) {
+            if (currentNode.value != null && currentNode.value == value) {
+                return i;
+            }
+
+            currentNode = currentNode.nextNode;
+        }
+        return null;
+    }
 }
 
 const mainList = new LinkedList();
@@ -127,3 +146,4 @@ mainList.prepend("hi0");
 console.log(mainList.toString());
 console.log(mainList.contains("hi"));
 console.log(mainList.contains("hi0"));
+console.log(mainList.find("hi2"));
