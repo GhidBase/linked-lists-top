@@ -67,6 +67,9 @@ class LinkedList {
             );
             return null;
         }
+        if (index < 0) {
+            console.error(`Requested index (${index}) is smaller than 0`);
+        }
         let currentNode = this.head();
         for (let i = 0; i < index; i++) {
             currentNode = currentNode.nextNode;
@@ -180,3 +183,4 @@ mainList.insertAt(0, "hola");
 mainList.insertAt(2, "hola2");
 console.log(mainList.toString());
 console.log(mainList.at(mainList.listSize + 1));
+mainList.at(-1)
