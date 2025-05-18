@@ -61,6 +61,12 @@ class LinkedList {
     }
 
     at(index) {
+        if (index > this.listSize) {
+            console.error(
+                `Requested index (${index}) is bigger than the Linked List (size:${this.listSize})`
+            );
+            return null;
+        }
         let currentNode = this.head();
         for (let i = 0; i < index; i++) {
             currentNode = currentNode.nextNode;
@@ -136,6 +142,31 @@ class LinkedList {
         }
         return null;
     }
+
+    insertAt(index, value) {
+        let newNode = new Node(value);
+        let originalNode = this.at(index);
+        let originalPreviousNode = originalNode.previousNode;
+        originalNode.previousNode = newNode;
+        if (originalPreviousNode) {
+            originalPreviousNode.nextNode = newNode;
+        }
+        newNode.value = value;
+        newNode.nextNode = originalNode;
+        newNode.previousNode = originalNode;
+
+        this.listSize++;
+
+        if (!originalPreviousNode) {
+            this.headNode = newNode;
+            originalNode.previousNode = newNode;
+        }
+
+        // I need to make the previousNode's nextNode atrribute = the newNode I create
+        // I need to make the previousNode attribute on originalNode = the new Node I create
+        // if there's no previous node, then I need to change the head value to = newNode
+        // if there's no next node, then I need to change the tail value to = newNode
+    }
 }
 
 const mainList = new LinkedList();
@@ -144,6 +175,8 @@ mainList.append("hi1");
 mainList.append("hi2");
 mainList.prepend("hi0");
 console.log(mainList.toString());
-console.log(mainList.contains("hi"));
-console.log(mainList.contains("hi0"));
-console.log(mainList.find("hi2"));
+
+mainList.insertAt(0, "hola");
+mainList.insertAt(2, "hola2");
+console.log(mainList.toString());
+console.log(mainList.at(mainList.listSize + 1));
