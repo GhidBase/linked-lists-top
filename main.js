@@ -188,6 +188,32 @@ class LinkedList {
         // if there's no previous node, then I need to change the head value to = newNode
         // if there's no next node, then I need to change the tail value to = newNode
     }
+
+    removeAt(index) {
+        if (index > this.listSize) {
+            console.error(
+                `removeAt(): Requested index (${index}) is bigger than the Linked List (size:${this.listSize})`
+            );
+            return null;
+        }
+        if (index < 0) {
+            console.error(
+                `removeAt(): Requested index (${index}) is smaller than 0`
+            );
+        }
+
+        let selectedNode = this.at(index);
+        // In the case of insertAt(listSize):
+        // Since originalNode.previousNode is null, we get it from at (index - 1)
+        // Instead of originalNode.previousNode directly
+        let originalPreviousNode = this.at(index - 1);
+        let originalNextNode = this.at(index + 1);
+        originalNextNode.previousNode = originalPreviousNode;
+        originalPreviousNode.nextNode = originalNextNode;
+        selectedNode.newNode = null;
+        selectedNode.previousNode = null;
+        this.listSize--;
+    }
 }
 
 const mainList = new LinkedList();
@@ -202,5 +228,7 @@ mainList.insertAt(1, "insert at 1");
 console.log(mainList.toString());
 console.log(`List length ${mainList.listSize}`);
 mainList.insertAt(mainList.listSize, "insert at end");
+console.log(mainList.toString());
+mainList.removeAt(2);
+// console.log(mainList);
 console.log(mainList.toString())
-// console.log(mainList.toString())
